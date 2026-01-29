@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>PokerLab Pro - DevOps Suite</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="logo">POKER<span>LAB</span></div>
+            <nav>
+                <button onclick="trocarAba('aba-tabelas')" class="nav-btn">📊 Tabelas de Range</button>
+                <button onclick="trocarAba('aba-treino')" class="nav-btn">🎯 Treinador GTO</button>
+                <button onclick="trocarAba('aba-lab')" class="nav-btn">🔬 Laboratório</button>
+            </nav>
+            <div class="sidebar-footer">DevOps Poker v3.0</div>
+        </aside>
+
+        <main class="main-content">
+            
+            <section id="aba-tabelas" class="tab-content active">
+                <header class="header-aba">
+                    <h2>Consulta de Ranges Pre-Flop</h2>
+                    <div class="controles-tabela">
+                        <button onclick="marcarRange('UTG')">UTG</button>
+                        <button onclick="marcarRange('MP')">MP</button>
+                        <button onclick="marcarRange('CO')">CO</button>
+                        <button onclick="marcarRange('BTN')">BTN</button>
+                        <button onclick="marcarRange('SB')">SB</button>
+                        <button class="btn-clear" onclick="limparGrid()">Limpar</button>
+                    </div>
+                </header>
+                <div id="grid-consulta" class="grid"></div>
+            </section>
+
+            <section id="aba-treino" class="tab-content">
+                <div class="stats-bar">
+                    <span class="stat-item">✅ <span id="hits">0</span></span>
+                    <span class="stat-item">❌ <span id="errors">0</span></span>
+                </div>
+
+                <div class="mesa-container">
+                    <div class="mesa-grande">
+                        <div class="pano-preto">
+                            <div id="pos-UTG" class="slot utg">UTG</div>
+                            <div id="pos-MP" class="slot mp">MP</div>
+                            <div id="pos-CO" class="slot co">CO</div>
+                            <div id="pos-BTN" class="slot btn">BTN</div>
+                            <div id="pos-SB" class="slot sb">SB</div>
+                            <div id="pos-BB" class="slot bb">BB</div>
+
+                            <div id="ficha-vilao" class="ficha-bet" style="display: none;">
+                                🟡 <span id="valor-bet">2.5bb</span>
+                            </div>
+
+                            <div class="container-cartas-treino">
+                                <div id="card-v1" class="card-visual">?</div>
+                                <div id="card-v2" class="card-visual">?</div>
+                            </div>
+
+                            <div id="acao-vilao" class="legenda-mesa">Mesa em Fold</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="feedback-treino" class="feedback-msg">Aguardando...</div>
+
+                <div class="botoes-acao">
+                    <button class="btn-acao fold" onclick="verificarAcao('FOLD')">FOLD</button>
+                    <button class="btn-acao call" onclick="verificarAcao('CALL')">CALL</button>
+                    <button class="btn-acao raise" onclick="verificarAcao('RAISE')">RAISE</button>
+                </div>
+
+                <button class="btn-main" onclick="novoCenario()">INICIAR / PRÓXIMA MÃO</button>
+            </section>
+        </main>
+    </div>
+
+    <script src="api/deck.js"></script>
+    <script src="api/solver.js"></script>
+    <script src="api/exchange.js"></script>
+    <script src="ranges.js"></script>
+    <script src="ui.js"></script>
+    <script src="engine.js"></script>
+</body>
+</html>
