@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PokerLab - Acesso</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle, #1a1a1a 0%, #0a0a0a 100%);
+            height: 100vh;
+            margin: 0;
+        }
+        .login-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            padding: 40px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+            max-width: 380px;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+        }
+        h1 { margin-bottom: 25px; font-weight: 900; letter-spacing: -1px; }
+        h1 span { color: #3b82f6; }
+        
+        .tab-auth { display: flex; margin-bottom: 25px; border-bottom: 1px solid #333; }
+        .tab-auth button {
+            flex: 1; padding: 10px; background: none; border: none;
+            color: #555; cursor: pointer; font-weight: bold; transition: 0.3s;
+        }
+        .tab-auth button.active { color: #3b82f6; border-bottom: 2px solid #3b82f6; }
+
+        .input-group { margin-bottom: 15px; text-align: left; }
+        .input-group label { display: block; margin-bottom: 6px; color: #888; font-size: 13px; }
+        .input-group input {
+            width: 100%; padding: 12px; background: #000; border: 1px solid #333;
+            border-radius: 8px; color: white; outline: none; transition: 0.3s;
+        }
+        .input-group input:focus { border-color: #3b82f6; box-shadow: 0 0 10px rgba(59, 130, 246, 0.2); }
+        
+        .btn-action {
+            width: 100%; padding: 14px; background: #3b82f6; border: none;
+            border-radius: 8px; color: white; font-weight: bold; cursor: pointer;
+            transition: 0.3s; margin-top: 10px;
+        }
+        .btn-action:hover { background: #2563eb; transform: translateY(-2px); }
+        
+        #msg-auth { margin-top: 15px; font-size: 13px; min-height: 18px; }
+        .error { color: #ef4444; }
+        .success { color: #22c55e; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <h1>POKER<span>LAB</span></h1>
+        
+        <div class="tab-auth">
+            <button id="tab-login" class="active" onclick="showForm('login')">Entrar</button>
+            <button id="tab-register" onclick="showForm('register')">Cadastrar</button>
+        </div>
+
+        <form id="form-login">
+            <div class="input-group">
+                <label>E-mail</label>
+                <input type="email" id="login-email" required>
+            </div>
+            <div class="input-group">
+                <label>Senha</label>
+                <input type="password" id="login-pass" required>
+            </div>
+            <button type="submit" class="btn-action">Acessar Arena</button>
+        </form>
+
+        <form id="form-register" class="hidden">
+            <div class="input-group">
+                <label>Novo E-mail</label>
+                <input type="email" id="reg-email" required>
+            </div>
+            <div class="input-group">
+                <label>Criar Senha</label>
+                <input type="password" id="reg-pass" required>
+            </div>
+            <button type="submit" class="btn-action">Criar Conta</button>
+        </form>
+
+        <div id="msg-auth"></div>
+    </div>
+
+    <script>
+        const msg = document.getElementById('msg-auth');
+
+        function showForm(type) {
+            document.getElementById('form-login').classList.toggle('hidden', type === 'register');
+            document.getElementById('form-register').classList.toggle('hidden', type === 'login');
+            document.getElementById('tab-login').classList.toggle('active', type === 'login');
+            document.getElementById('tab-register').classList.toggle('active', type === 'register');
+            msg.innerText = "";
+        }
+
+        // LÓGICA DE CADASTRO
+        document.getElementById('form-register').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('reg-email').value;
+            const pass = document.getElementById('reg-pass').value;
+
+            // Salva no LocalStorage
+            localStorage.setItem(email, pass);
+            
+            msg.innerText = "Usuário registrado com sucesso!";
+            msg.className = "success";
+            setTimeout(() => showForm('login'), 1500);
+        });
+
+        // LÓGICA DE LOGIN
+        document.getElementById('form-login').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const pass = document.getElementById('login-pass').value;
+
+            const savedPass = localStorage.getItem(email);
+
+            if (savedPass && savedPass === pass) {
+                msg.innerText = "Autenticando...";
+                msg.className = "success";
+                // Simula delay de rede para ficar profissional
+                setTimeout(() => window.location.href = 'index.html', 1000);
+            } else {
+                msg.innerText = "E-mail ou senha incorretos.";
+                msg.className = "error";
+            }
+        });
+    </script>
+</body>
+</html>
