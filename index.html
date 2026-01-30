@@ -45,12 +45,25 @@
                 <div class="mesa-container">
                     <div class="mesa-grande">
                         <div class="pano-preto">
+                            <div class="pote-container">
+                                <div class="pote-label">POT</div>
+                                <div id="valor-pote" class="pote-valor">0.0 bb</div>
+                            </div>
+
                             <div id="pos-UTG" class="slot utg">UTG</div>
                             <div id="pos-MP" class="slot mp">MP</div>
                             <div id="pos-CO" class="slot co">CO</div>
                             <div id="pos-BTN" class="slot btn">BTN</div>
                             <div id="pos-SB" class="slot sb">SB</div>
                             <div id="pos-BB" class="slot bb">BB</div>
+
+                            <div id="board-cartas" class="board-container">
+                                <div class="card-visual mini" id="flop-1"></div>
+                                <div class="card-visual mini" id="flop-2"></div>
+                                <div class="card-visual mini" id="flop-3"></div>
+                                <div class="card-visual mini" id="turn"></div>
+                                <div class="card-visual mini" id="river"></div>
+                            </div>
 
                             <div id="ficha-vilao" class="ficha-bet" style="display: none;">
                                 🟡 <span id="valor-bet">2.5bb</span>
@@ -66,24 +79,45 @@
                     </div>
                 </div>
 
-                <div id="feedback-treino" class="feedback-msg">Aguardando...</div>
+                <div id="feedback-treino" class="feedback-msg">Aguardando cérebro Python...</div>
+
+                <div id="sizing-bar" class="sizing-row" style="display: none; margin-bottom: 10px;">
+                    <button class="btn-sizing" onclick="definirAposta(0.33)">1/3</button>
+                    <button class="btn-sizing" onclick="definirAposta(0.5)">1/2</button>
+                    <button class="btn-sizing" onclick="definirAposta(0.75)">3/4</button>
+                    <button class="btn-sizing" onclick="definirAposta(1)">POT</button>
+                </div>
 
                 <div class="botoes-acao">
                     <button class="btn-acao fold" onclick="verificarAcao('FOLD')">FOLD</button>
+                    <button class="btn-acao check" id="btn-check" style="display: none;" onclick="verificarAcao('CHECK')">CHECK</button>
                     <button class="btn-acao call" onclick="verificarAcao('CALL')">CALL</button>
-                    <button class="btn-acao raise" onclick="verificarAcao('RAISE')">RAISE</button>
+                    <button class="btn-acao raise" id="btn-raise" onclick="verificarAcao('RAISE')">RAISE</button>
                 </div>
 
                 <button class="btn-main" onclick="novoCenario()">INICIAR / PRÓXIMA MÃO</button>
             </section>
+
+            <section id="aba-lab" class="tab-content">
+                <header class="header-aba">
+                    <h2>Dashboard de Performance</h2>
+                    <p>Análise técnica das sessões em tempo real</p>
+                </header>
+                <div class="dashboard-grid">
+                    <div class="chart-card"><canvas id="chart-acertos"></canvas></div>
+                    <div class="chart-card"><canvas id="chart-posicoes"></canvas></div>
+                </div>
+            </section>
         </main>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="api/deck.js"></script>
     <script src="api/solver.js"></script>
     <script src="api/exchange.js"></script>
     <script src="ranges.js"></script>
     <script src="ui.js"></script>
     <script src="engine.js"></script>
+    <script src="dashboard.js"></script>
 </body>
 </html>

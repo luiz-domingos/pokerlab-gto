@@ -10,9 +10,15 @@ window.onload = function() {
 
 const ui = {
     // Troca entre Tabelas, Treinador e Lab
+    // Troca entre Tabelas, Treinador e Lab
     trocarAba: function(id) {
         document.querySelectorAll('.tab-content').forEach(aba => aba.classList.remove('active'));
         document.getElementById(id).classList.add('active');
+
+        // NOVO: Se abrir a aba de Dashboard, inicializa ou atualiza os gráficos
+        if (id === 'aba-lab' && typeof dashboard !== 'undefined') {
+            dashboard.init(); 
+        }
     },
 
     // Gera a tabela 13x13 na aba de consulta

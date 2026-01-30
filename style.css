@@ -1,76 +1,150 @@
 :root {
-    --bg: #121212; --sidebar: #0a0a0a; --mesa: #000000;
-    --accent: #3b82f6; --green: #22c55e; --red: #ef4444; --gold: #fbbf24;
+    --bg: #0f172a; 
+    --sidebar: #020617; 
+    --mesa-gradient: radial-gradient(circle, #1e293b 0%, #080a0f 100%);
+    --accent: #38bdf8; 
+    --green: #22c55e; 
+    --red: #ef4444; 
+    --gold: #fbbf24;
 }
 
-* { box-sizing: border-box; }
+* { box-sizing: border-box; transition: all 0.2s ease; }
 body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); color: white; height: 100vh; overflow: hidden; }
 
 .app-container { display: flex; height: 100vh; }
 
 /* Sidebar */
-.sidebar { width: 250px; background: var(--sidebar); border-right: 1px solid #222; padding: 30px 15px; display: flex; flex-direction: column; }
-.logo { font-size: 22px; font-weight: 900; margin-bottom: 40px; text-align: center; }
+.sidebar { width: 250px; background: var(--sidebar); border-right: 1px solid #1e293b; padding: 30px 15px; display: flex; flex-direction: column; }
+.logo { font-size: 22px; font-weight: 900; margin-bottom: 40px; text-align: center; letter-spacing: -1px; }
 .logo span { color: var(--accent); }
-.nav-btn { background: none; border: none; color: #777; padding: 12px; text-align: left; cursor: pointer; width: 100%; font-size: 15px; border-radius: 8px; margin-bottom: 5px; }
-.nav-btn:hover { background: #1a1a1a; color: white; }
+.nav-btn { background: none; border: none; color: #64748b; padding: 14px; text-align: left; cursor: pointer; width: 100%; font-size: 15px; border-radius: 8px; margin-bottom: 8px; }
+.nav-btn:hover { background: #1e293b; color: white; }
 
 /* Main Content */
-.main-content { flex: 1; padding: 40px; display: flex; flex-direction: column; align-items: center; overflow-y: auto; }
+.main-content { flex: 1; padding: 20px; display: flex; flex-direction: column; align-items: center; overflow-y: auto; }
 .tab-content { display: none; width: 100%; flex-direction: column; align-items: center; }
-.tab-content.active { display: flex; }
+.tab-content.active { display: flex !important; }
 
-/* Mesa */
+/* Mesa Estilizada */
 .mesa-grande { 
-    width: 600px; height: 300px; background: #222; border-radius: 150px; 
-    padding: 15px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); margin: 30px 0;
+    width: 750px; height: 380px; background: #334155; border-radius: 200px; 
+    padding: 15px; box-shadow: 0 30px 60px rgba(0,0,0,0.7); margin: 20px 0;
+    border: 4px solid #1e293b; position: relative;
 }
-.pano-preto { width: 100%; height: 100%; background: var(--mesa); border-radius: 140px; position: relative; border: 1px solid #333; }
+.pano-preto { width: 100%; height: 100%; background: var(--mesa-gradient); border-radius: 185px; position: relative; border: 1px solid rgba(255,255,255,0.05); }
 
-/* Cartas na Mesa */
-.container-cartas-treino { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; gap: 10px; }
+/* Board Pós-Flop */
+.board-container {
+    position: absolute; top: 35%; left: 50%; transform: translate(-50%, -50%);
+    display: flex; gap: 10px; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 12px;
+}
+
+/* Cartas Jogador */
+.container-cartas-treino { position: absolute; bottom: 15%; left: 50%; transform: translateX(-50%); display: flex; gap: 12px; }
 
 .card-visual { 
     width: 75px; height: 105px; background: white; border-radius: 8px; color: black;
     display: flex; flex-direction: column; align-items: center; justify-content: center; 
-    font-size: 32px; font-weight: 900; box-shadow: 0 5px 15px rgba(0,0,0,0.5); 
-    border: 1px solid #ddd; line-height: 1;
+    font-size: 28px; font-weight: 900; box-shadow: 0 8px 20px rgba(0,0,0,0.5); 
+    border: 1px solid #ddd;
 }
+.card-visual.mini { width: 55px; height: 80px; font-size: 20px; background: #f8fafc; }
 
-/* Naipe pequeno abaixo do valor */
-.card-suit { font-size: 24px; margin-top: 5px; }
+.txt-red { color: #ef4444; }
+.txt-black { color: #1e293b; }
 
-.txt-red { color: #d63031; }
-.txt-black { color: #2d3436; }
-
-/* Slots e Fichas */
-.slot { position: absolute; background: #1a1a1a; padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: bold; border: 1px solid #444; transition: 0.3s; }
+/* Slots */
+.slot { position: absolute; background: #0f172a; padding: 8px 16px; border-radius: 20px; font-size: 11px; font-weight: bold; border: 1px solid #334155; }
 .utg { top: -10px; left: 50%; transform: translateX(-50%); }
-.mp { top: 60px; right: -20px; }
-.co { bottom: 60px; right: -20px; }
+.mp { top: 60px; right: -30px; }
+.co { bottom: 60px; right: -30px; }
 .btn { bottom: -10px; left: 50%; transform: translateX(-50%); }
-.sb { bottom: 60px; left: -20px; }
-.bb { top: 60px; left: -20px; }
-.active-pos { border-color: var(--accent); box-shadow: 0 0 15px var(--accent); transform: scale(1.1) translateX(-45%); }
+.sb { bottom: 60px; left: -30px; }
+.bb { top: 60px; left: -30px; }
+.active-pos { border-color: var(--accent); box-shadow: 0 0 15px var(--accent); }
 
-.ficha-bet { 
-    position: absolute; top: 60px; right: 120px; background: rgba(0,0,0,0.8); 
-    padding: 5px 15px; border-radius: 20px; border: 2px solid var(--gold); color: white;
-    font-weight: bold; display: flex; align-items: center; gap: 8px;
-    animation: pop 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-}
-@keyframes pop { from { transform: scale(0); } to { transform: scale(1); } }
-
-.legenda-mesa { position: absolute; bottom: 20%; width: 100%; text-align: center; color: #666; font-size: 14px; font-weight: 600; }
-
-/* Botões de Ação */
+/* Botões */
 .botoes-acao { display: flex; gap: 15px; margin: 20px 0; }
-.btn-acao { padding: 15px 40px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; color: white; font-size: 16px; transition: 0.2s; }
-.btn-acao:active { transform: scale(0.95); }
+.btn-acao { padding: 15px 35px; border: none; border-radius: 10px; cursor: pointer; font-weight: 900; color: white; font-size: 14px; text-transform: uppercase; }
 .fold { background: var(--red); } .call { background: var(--gold); color: black; } .raise { background: var(--green); }
-.btn-main { background: var(--accent); border: none; color: white; padding: 15px 40px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 16px; }
+.btn-main { background: var(--accent); border: none; color: white; padding: 18px 50px; border-radius: 12px; cursor: pointer; font-weight: 900; font-size: 16px; box-shadow: 0 10px 20px rgba(56, 189, 248, 0.3); }
 
-/* Grid */
-.grid { display: grid; grid-template-columns: repeat(13, 40px); gap: 3px; margin-top: 20px; }
-.cell { width: 40px; height: 40px; background: #222; font-size: 11px; display: flex; align-items: center; justify-content: center; border: 1px solid #333; border-radius: 4px; color: #777; }
-.raise-cell { background: var(--green) !important; color: white; border: none; }
+/* Dashboard */
+.dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; width: 100%; max-width: 900px; margin-top: 20px; }
+.chart-card { background: #020617; border: 1px solid #1e293b; border-radius: 16px; padding: 20px; height: 320px; }
+.feedback-msg { margin-top: 10px; font-weight: 700; color: var(--accent); font-size: 18px; }
+.check { 
+    background: #334155; /* Cinza azulado profissional */
+    color: white; 
+    border: 1px solid var(--accent) !important;
+}
+
+.check:hover {
+    background: var(--accent);
+    color: var(--bg);
+}
+/* Garante que a ficha de aposta fique visível e centralizada */
+.ficha-bet { 
+    position: absolute; 
+    top: 55px; 
+    right: 25%; 
+    z-index: 10; /* Fica à frente de tudo */
+    background: #000; 
+    padding: 8px 15px; 
+    border-radius: 20px; 
+    border: 2px solid var(--gold); 
+    display: none; /* Ativado via JS */
+    align-items: center;
+    gap: 8px;
+    font-weight: 900;
+}
+
+/* Estilo específico do botão Check */
+.btn-acao.check {
+    background: #334155;
+    border: 1px solid var(--accent);
+}
+.pote-container {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    padding: 5px 20px;
+    border-radius: 15px;
+    border: 1px solid var(--gold);
+    text-align: center;
+    z-index: 5;
+}
+
+.pote-label { font-size: 10px; color: var(--gold); font-weight: 900; }
+.pote-valor { font-size: 18px; color: white; font-weight: 700; }
+
+/* Botão de Check diferenciado */
+.btn-acao.check { background: #475569; border: 1px solid #94a3b8; }
+.pote-container {
+    position: absolute;
+    top: 15px; /* Ajustado para não cobrir as cartas */
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    padding: 8px 20px;
+    border-radius: 10px;
+    border: 1px solid var(--gold);
+    z-index: 100;
+}
+.sizing-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+.btn-sizing {
+    background: #1e293b;
+    border: 1px solid var(--accent);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+}
+.btn-sizing:hover { background: var(--accent); color: black; }
