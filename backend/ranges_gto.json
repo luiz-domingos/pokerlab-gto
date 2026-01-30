@@ -1,0 +1,8 @@
+{
+  "UTG": {
+    "AA": "RAISE", "AKs": "RAISE", "75s": "FOLD", "22": "RAISE"
+  },
+  "BTN": {
+    "75s": "RAISE", "T9s": "RAISE", "A2s": "RAISE"
+  }
+}
